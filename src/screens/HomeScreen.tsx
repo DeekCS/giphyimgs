@@ -1,13 +1,17 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {FlatList, ActivityIndicator, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useCategoryGifs} from '../hooks/useCategoryGifs';
-import GifItem from '../components/GifItem';
-import CategoryTabs from '../components/CategoryTabs';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import {truncateText} from '../utils/textUtils';
-import useScrollToTop from '../hooks/useScrollToTop';
+
 import gifs from '../types/gifs';
+
+import {useCategoryGifs} from '@hooks/useCategoryGifs';
+import useScrollToTop from '@hooks/useScrollToTop';
+
+import {truncateText} from '@utils/textUtils';
+
+import GifItem from '@components/GifItem';
+import ScrollToTopButton from '@components/ScrollToTopButton';
+import CategoryTabs from '@components/CategoryTabs';
 
 const HomeScreen: React.FC = () => {
   const [page, setPage] = useState<number>(0);
