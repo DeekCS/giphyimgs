@@ -1,31 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import gifs from '../types/gifs';
+import FavoriteButton from './FavoriteButton';
+import {truncateText} from '@utils/textUtils';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const imageSize = width / 2 - 12;
 
-const truncateText = (text: string, maxLength: number): string => {
-  return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
-};
-
-const GifItem: React.FC<{ item: gifs }> = ({ item }) => (
+const GifItem: React.FC<{item: gifs}> = ({item}) => (
   <View style={styles.gridItem}>
     <FastImage
-      style={{ ...styles.gifImage, height: imageSize, width: imageSize }}
+      style={{...styles.gifImage, height: imageSize, width: imageSize}}
       source={{
         uri: item.images.fixed_height_downsampled.url,
         priority: FastImage.priority.normal,
       }}
       resizeMode={FastImage.resizeMode.cover}
     />
+
     <Text style={styles.title}>
       {truncateText(item.title || 'No Title Available', 20)}
     </Text>
     <Text style={styles.description}>
       {item.description || 'No description available'}
     </Text>
+    <FavoriteButton item={item} />
   </View>
 );
 

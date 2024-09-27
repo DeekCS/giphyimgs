@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {FlatList, ActivityIndicator, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {FlatList, ActivityIndicator, Text, View} from 'react-native';
 
 import gifs from '../types/gifs';
 
@@ -55,7 +54,7 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, padding: 8, backgroundColor: '#121212'}}>
+    <View style={{flex: 1, padding: 8, backgroundColor: '#121212'}}>
       <CategoryTabs
         selectedCategory={selectedCategory}
         onSelectCategory={key => {
@@ -83,7 +82,7 @@ const HomeScreen: React.FC = () => {
       />
 
       {showScrollToTop && <ScrollToTopButton onPress={scrollToTop} />}
-    </SafeAreaView>
+    </View>
   );
 };
 
