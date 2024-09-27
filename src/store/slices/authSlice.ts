@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {LoginRequest} from '../../types/formTypes';
 
 interface AuthState {
-  user: 'admin' | null;
+  user: LoginRequest | null;
   loading: boolean;
   error: string | null;
 }
@@ -17,7 +17,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction< null>) {
+    setUser(state, action: PayloadAction<LoginRequest | null>) {
       state.user = action.payload;
     },
     setLoading(state, action: PayloadAction<boolean>) {
@@ -29,5 +29,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, setLoading, setError } = authSlice.actions;
+export const {setUser, setLoading, setError} = authSlice.actions;
 export default authSlice.reducer;

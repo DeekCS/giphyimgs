@@ -15,8 +15,11 @@ import {
 import {LoginRequest} from '../../types/formTypes';
 import useLogin from '../../hooks/useLogin';
 import Icon from 'react-native-vector-icons/Feather';
+import {useDispatch} from 'react-redux';
+import {setUser} from '../../store/slices/authSlice';
 
 const LoginScreen: React.FC = () => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const initialState: LoginRequest = {userName: '', password: ''};
 
@@ -36,6 +39,7 @@ const LoginScreen: React.FC = () => {
     }
     // if username and password are correct, show alert
     Alert.alert('Success', 'You are logged in!');
+    dispatch(setUser(data));
   };
 
   const {values, onSubmit, getError, handleChange, isDisabled, loading} =
