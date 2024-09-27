@@ -22,13 +22,41 @@ export const fetchTrendingGifs = async ({page = 0}) => {
 
     return {
       data,
-      total: pagination.total_count, // Total number of GIFs
-      count: pagination.count,       // GIFs in the current response
+      total: pagination.total_count,
+      count: pagination.count,
     };
   } catch (error) {
     throw new Error('Error fetching trending GIFs');
   }
 };
+
+export const fetchGifsByCategory = async ({
+  page = 0,
+  category = 'trending',
+}) => {
+  try {
+    const endpoint =
+      category === 'trending' ? '/trending' : `/search?q=${category}`;
+
+    const response = await api.get(endpoint, {
+      params: {
+        limit: 20,
+        offset: page,
+      },
+    });
+
+    const {data, pagination} = response.data;
+
+    return {
+      data,
+      total: pagination.total_count,
+      count: pagination.count,
+    };
+  } catch (error) {
+    throw new Error('Error fetching GIFs');
+  }
+};
+
 export const searchGifs = async (
   query: string,
   limit: number = 20,

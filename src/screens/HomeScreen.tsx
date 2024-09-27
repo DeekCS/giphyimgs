@@ -11,14 +11,30 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useTrendingGifs} from '../hooks/useInfiniteGifs';
+import {categories} from '../data/categories';
+import {useCategoryGifs} from '../hooks/useCategoryGifs';
 
 const {width} = Dimensions.get('window');
 
+type gifs = {
+  id: string;
+  title: string;
+  description: string;
+  images: {
+    fixed_height_downsampled: {
+      url: string;
+    };
+  };
+};
+
 const HomeScreen: React.FC = () => {
   const [page, setPage] = useState(0);
-  const [gifs, setGifs] = useState<any[]>([]);
-  const {data, isLoading, isError, isFetching} = useTrendingGifs(page);
+  const [selectedCategory, setSelectedCategory] = useState('trending');
+  const [gifs, setGifs] = useState<gifs[]>([]);
+  const {data, isLoading, isError, isFetching} = useCategoryGifs(
+    page,
+    selectedCategory,
+  );
 
   const flatListRef = useRef<FlatList>(null);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -74,7 +90,7 @@ const HomeScreen: React.FC = () => {
     [{nativeEvent: {contentOffset: {y: scrollY}}}],
     {
       useNativeDriver: false,
-      listener: event => {
+      listener: (event: {nativeEvent: {contentOffset: {y: number}}}) => {
         const offsetY = event.nativeEvent.contentOffset.y;
         if (offsetY > 200) {
           setShowScrollToTop(true);
@@ -83,6 +99,27 @@ const HomeScreen: React.FC = () => {
         }
       },
     },
+  );
+
+  const renderTabItem = ({item}: {item: {key: string; label: string}}) => (
+    <TouchableOpacity
+      style={[
+        styles.tabItem,
+        selectedCategory === item.key && styles.activeTab,
+      ]}
+      onPress={() => {
+        setSelectedCategory(item.key);
+        setPage(0);
+        setGifs([]);
+      }}>
+      <Text
+        style={[
+          styles.tabText,
+          selectedCategory === item.key && styles.activeTabText,
+        ]}>
+        {item.label}
+      </Text>
+    </TouchableOpacity>
   );
 
   if (isLoading && page === 0) {
@@ -95,6 +132,16 @@ const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Render Category Tabs */}
+      <FlatList
+        data={categories}
+        horizontal
+        keyExtractor={item => item.key}
+        renderItem={renderTabItem}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.tabBar}
+      />
+
       <FlatList
         ref={flatListRef}
         data={gifs}
@@ -126,6 +173,29 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     backgroundColor: '#121212',
+  },
+  tabBar: {
+    paddingVertical: 15,
+    backgroundColor: '#1F1F1F',
+  },
+  tabItem: {
+    height: 40,
+    padding: 10,
+    margin: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#6C4FFF',
+  },
+  activeTab: {
+    backgroundColor: '#6C4FFF',
+    borderColor: 'transparent',
+  },
+  tabText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  activeTabText: {
+    color: '#fff',
   },
   gridItem: {
     margin: 6,
