@@ -1,7 +1,8 @@
-import gifs from "./gifs";
+import gifs from './gifs';
 
 export type RootStackParamList = {
-    Home: undefined;
-    Favorites: undefined;
-    ItemDetails: { item: gifs };
-  };
+  Home: undefined;
+  Favorites: undefined;
+  ItemDetails: { item: gifs };
+  Search: undefined;
+};

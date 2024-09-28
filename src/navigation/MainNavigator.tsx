@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import ItemDetailsScreen from '../screens/ItemDetailsScreen';
 import {RootStackParamList} from '../types/params';
+import SearchScreen from '../screens/SearchScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -27,7 +28,7 @@ const MainNavigator: React.FC = () => (
               <Icon name="hearto" size={24} color="#FFF" style={styles.icon} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => console.log('Other action')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Search')}>
               <Icon name="search1" size={24} color="#FFF" style={styles.icon} />
             </TouchableOpacity>
           </View>
@@ -44,6 +45,11 @@ const MainNavigator: React.FC = () => (
       component={ItemDetailsScreen}
       options={{headerShown: true, title: 'Item Details'}}
     />
+    <Stack.Screen
+      name="Search"
+      component={SearchScreen}
+      options={{headerShown: true, title: 'Search GIFs'}}
+    />
   </Stack.Navigator>
 );
 
@@ -56,6 +62,6 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   icon: {
-    marginLeft: 20, // Space between icons
+    marginLeft: 20,
   },
 });

@@ -61,6 +61,7 @@ export const searchGifs = async (
   query: string,
   limit: number = 20,
   offset: number = 0,
+  signal?: AbortSignal, 
 ) => {
   const response = await api.get('/search', {
     params: {
@@ -68,6 +69,7 @@ export const searchGifs = async (
       limit,
       offset,
     },
+    signal, 
   });
   return response.data.data;
 };
