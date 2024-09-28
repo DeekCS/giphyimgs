@@ -1,41 +1,47 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {selectIsItemFavorite} from '../store/selectors/favoritesSelectors';
-import {addFavorite, removeFavorite} from '../store/slices/favoritesSlice';
+import {Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import FavoriteItem from '../types/favorites';
+import FastImage from 'react-native-fast-image';
+import {RootStackParamList} from '../types/params';
+import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import FavoriteButton from '@components/FavoriteButton';
 
-interface ItemDetailsProps {
-  route: {params: {item: FavoriteItem}};
-}
+type ItemDetailsScreenRouteProp = RouteProp<RootStackParamList, 'ItemDetails'>;
+type ItemDetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ItemDetails'
+>;
+
+type ItemDetailsProps = {
+  route: ItemDetailsScreenRouteProp;
+  navigation: ItemDetailsScreenNavigationProp;
+};
+
+const {width} = Dimensions.get('window');
+
+const imageSize = width - 24;
 
 const ItemDetailsScreen: React.FC<ItemDetailsProps> = ({route}) => {
-  const {item} = route.params;
-  const dispatch = useDispatch();
-  const isFavorite = useSelector(selectIsItemFavorite(item.id));
-
-  const toggleFavorite = () => {
-    if (isFavorite) {
-      dispatch(removeFavorite(item.id));
-    } else {
-      dispatch(addFavorite(item));
-    }
-  };
-
+  const {item} = route.params as {item: FavoriteItem};
   return (
-    <View style={styles.container}>
-      <Image source={{uri: item.url}} style={styles.image} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.type}>Type: {item.type}</Text>
-      <Text style={styles.slug}>Slug: {item.slug}</Text>
-
-      <TouchableOpacity onPress={toggleFavorite} style={styles.favoriteButton}>
-        <Text style={styles.favoriteButtonText}>
-          {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}>
+      <FastImage
+        style={{...styles.gifImage, height: imageSize, width: imageSize}}
+        source={{
+          uri: item.images.fixed_height_downsampled.url,
+          priority: FastImage.priority.normal,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+      />
+      <FavoriteButton item={item} />
+      <Text style={styles.title}>{item.title || 'No Title Available'}</Text>
+      <Text style={styles.description}>
+        {item?.alt_text || 'No description available'}
+      </Text>
+    </ScrollView>
   );
 };
 
@@ -43,45 +49,25 @@ export default ItemDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
     backgroundColor: '#121212',
+    padding: 12,
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingEnd: 12,
+    flexGrow: 1,
   },
-  image: {
-    width: '100%',
-    height: 200,
+  gifImage: {
     borderRadius: 8,
-    marginBottom: 16,
   },
   title: {
+    color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 8,
+    marginTop: 12,
   },
   description: {
-    fontSize: 14,
     color: '#ccc',
-    marginBottom: 8,
-  },
-  type: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 4,
-  },
-  slug: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 16,
-  },
-  favoriteButton: {
-    padding: 12,
-    backgroundColor: '#6C4FFF',
-    borderRadius: 8,
-  },
-  favoriteButtonText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    fontSize: 16,
+    marginTop: 8,
   },
 });

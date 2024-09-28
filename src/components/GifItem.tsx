@@ -8,26 +8,42 @@ import {truncateText} from '@utils/textUtils';
 const {width} = Dimensions.get('window');
 const imageSize = width / 2 - 12;
 
-const GifItem: React.FC<{item: gifs}> = ({item}) => (
-  <View style={styles.gridItem}>
-    <FastImage
-      style={{...styles.gifImage, height: imageSize, width: imageSize}}
-      source={{
-        uri: item.images.fixed_height_downsampled.url,
-        priority: FastImage.priority.normal,
-      }}
-      resizeMode={FastImage.resizeMode.cover}
-    />
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../types/params';
 
-    <Text style={styles.title}>
-      {truncateText(item.title || 'No Title Available', 20)}
-    </Text>
-    <Text style={styles.description}>
-      {item.description || 'No description available'}
-    </Text>
-    <FavoriteButton item={item} />
-  </View>
-);
+type GifItemNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ItemDetails'
+>;
+
+const GifItem: React.FC<{item: gifs}> = ({item}) => {
+  const navigation = useNavigation<GifItemNavigationProp>();
+
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ItemDetails', {item})}>
+      <View style={styles.gridItem}>
+        <FastImage
+          style={{...styles.gifImage, height: imageSize, width: imageSize}}
+          source={{
+            uri: item.images.fixed_height_downsampled.url,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+        <Text style={styles.title}>
+          { truncateText(item.title, 20)}
+        </Text>
+        <Text style={styles.description}>
+          {item?.user?.display_name || 'No description available'}
+        </Text>
+        <FavoriteButton item={item} />
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   gridItem: {
