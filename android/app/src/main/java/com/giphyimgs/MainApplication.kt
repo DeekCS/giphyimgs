@@ -1,5 +1,5 @@
 package com.giphyimgs
-
+import android.os.Bundle;
 import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -12,6 +12,10 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 
 class MainApplication : Application(), ReactApplication {
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
+  }
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {

@@ -18,6 +18,7 @@ module.exports = {
       allowlist: null,
       safe: false,
       allowUndefined: true,
-    }]
+    }],
+    'react-native-reanimated/plugin',
   ]
 };

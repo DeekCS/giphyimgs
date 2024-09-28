@@ -47,7 +47,10 @@ const MainNavigator: React.FC = () => (
     <Stack.Screen
       name="ItemDetails"
       component={ItemDetailsScreen}
-      options={{headerShown: true, title: 'Item Details'}}
+      options={{
+        headerShown: true,
+        title: 'Item Details',
+      }}
     />
     <Stack.Screen
       name="Search"

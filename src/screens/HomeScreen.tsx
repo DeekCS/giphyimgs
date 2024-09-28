@@ -54,6 +54,7 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
+    <>
     <View style={{flex: 1, padding: 8, backgroundColor: '#121212'}}>
       <CategoryTabs
         selectedCategory={selectedCategory}
@@ -83,6 +84,7 @@ const HomeScreen: React.FC = () => {
 
       {showScrollToTop && <ScrollToTopButton onPress={scrollToTop} />}
     </View>
+    </>
   );
 };
 
