@@ -11,7 +11,11 @@ import SearchScreen from '../screens/SearchScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const MainNavigator: React.FC = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+    }}>
     <Stack.Screen
       name="Home"
       component={HomeScreen}
