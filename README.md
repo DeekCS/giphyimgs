@@ -1,13 +1,11 @@
-```md
 # Giphy Images App
 
 Giphy Images is a React Native app that allows users to browse, search, and view GIFs from the Giphy API. It includes Firebase authentication and shared element transitions for a smooth user experience.
 
 ## Features
 
-- **Browse Trending GIFs**: View the most popular trending GIFs from Giphy.
-- **Search GIFs**: Find specific GIFs by searching with a query.
-- **Favorites**: Save and view your favorite GIFs.
+- **Browse Trending GIFs**: View the most popular trending GIFs from Giphy.—**Search GIFs**: Find specific GIFs by searching with a query.
+— **Favorites**: Save and view your favorite GIFs.
 
 ## Screens
 
@@ -25,7 +23,8 @@ Giphy Images is a React Native app that allows users to browse, search, and view
 
 ### Setup Instructions
 
-0. Login Account:
+
+1. Login Account:
 
    ```bash
    username: a.aldeek@gmail.com
