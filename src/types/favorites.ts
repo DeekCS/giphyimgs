@@ -1,11 +1,15 @@
 type FavoriteItem = {
+  alt_text: string;
   id: string;
   title: string;
-  description: string;
   images: {
     fixed_height_downsampled: {
       url: string;
     };
+  };
+  user: {
+    description: string;
+    display_name: string;
   };
 };
 

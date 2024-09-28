@@ -4,9 +4,10 @@ import HomeScreen from '../screens/HomeScreen';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FavoriteScreen from '../screens/FavoriteScreen';
-// import ItemDetailsScreen from '../screens/ItemDetailsScreen';
+import ItemDetailsScreen from '../screens/ItemDetailsScreen';
+import {RootStackParamList} from '../types/params';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const MainNavigator: React.FC = () => (
   <Stack.Navigator>
@@ -38,11 +39,11 @@ const MainNavigator: React.FC = () => (
       component={FavoriteScreen}
       options={{headerShown: true, title: 'Favorites'}}
     />
-    {/* <Stack.Screen
+    <Stack.Screen
       name="ItemDetails"
       component={ItemDetailsScreen}
       options={{headerShown: true, title: 'Item Details'}}
-    /> */}
+    />
   </Stack.Navigator>
 );
 

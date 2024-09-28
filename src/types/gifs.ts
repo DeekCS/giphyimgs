@@ -1,13 +1,16 @@
 type gifs = {
-    id: string;
-    title: string;
-    description: string;
-    images: {
-      fixed_height_downsampled: {
-        url: string;
-      };
+  alt_text: string;
+  id: string;
+  title: string;
+  images: {
+    fixed_height_downsampled: {
+      url: string;
     };
   };
-  
-  export default gifs;
-  
+  user: {
+    description: string;
+    display_name: string;
+  };
+};
+
+export default gifs;
