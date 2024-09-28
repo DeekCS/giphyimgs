@@ -68,7 +68,7 @@ Giphy Images is a React Native app that allows users to browse, search, and view
 6. Create a `.env` file in the root of the project and add your Giphy API key and Firebase configuration:
 
    ```bash
-   GIPHY_API_KEY='your_giphy_api_key'
+   GIPHY_API_KEY='your_giphy_api_key' ### 9Y8pgdIcBQsIhgOGM8bwfH7C0i4H5wNs
    ```
 
 7. Start the Metro bundler:
