@@ -1,11 +1,10 @@
 import axios from 'axios';
-
-const API_KEY = '9Y8pgdIcBQsIhgOGM8bwfH7C0i4H5wNs';
+import {GIPHY_API_KEY} from '@env';
 
 const api = axios.create({
   baseURL: 'https://api.giphy.com/v1/gifs',
   params: {
-    api_key: API_KEY,
+    api_key: GIPHY_API_KEY,
   },
 });
 
@@ -61,7 +60,7 @@ export const searchGifs = async (
   query: string,
   limit: number = 20,
   offset: number = 0,
-  signal?: AbortSignal, 
+  signal?: AbortSignal,
 ) => {
   const response = await api.get('/search', {
     params: {
@@ -69,7 +68,7 @@ export const searchGifs = async (
       limit,
       offset,
     },
-    signal, 
+    signal,
   });
   return response.data.data;
 };
