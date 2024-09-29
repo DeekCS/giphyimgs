@@ -15,6 +15,7 @@ const FavoriteScreen: React.FC = () => {
   // Use useLayoutEffect to set the header options
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: `Favorites (${favoriteItems.length})`,
       headerRight: () => (
         <>
           {favoriteItems.length > 0 && (
