@@ -16,38 +16,54 @@ import {LoginRequest} from '../../types/formTypes';
 import useLogin from '../../hooks/useLogin';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch} from 'react-redux';
-import {setUser} from '../../store/slices/authSlice';
+import {setLoading, setUser} from '../../store/slices/authSlice';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {authentication} from '../../config/firebaseConfig';
+import {useSelector} from 'react-redux';
+import {selectAuthLoading} from '../../store/selectors/authSelectors';
 
 const LoginScreen: React.FC = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectAuthLoading);
+
   const [showPassword, setShowPassword] = useState(false);
-  const initialState: LoginRequest = {userName: '', password: ''};
 
-  const user = {
-    userName: 'a.aldeek@gmail.com',
-    password: 'password123',
-  };
-
-  const onSubmitForm = (data: LoginRequest) => {
-    // if no username or password entered, show alert
+  const onSubmitForm = async (data: LoginRequest) => {
     if (!data.userName || !data.password) {
       return Alert.alert('Error', 'Please enter your username and password');
     }
-    // if username or password is incorrect, show alert
-    if (data.userName !== user.userName || data.password !== user.password) {
-      return Alert.alert('Error', 'Invalid username or password');
-    }
-    // if username and password are correct, show alert
-    Alert.alert('Success', 'You are logged in!');
-    dispatch(setUser(data));
+
+    await handleLogin();
   };
 
+  const initialState: LoginRequest = {userName: '', password: ''};
   const {values, onSubmit, getError, handleChange, isDisabled, loading} =
     useLogin({
       onSubmitForm,
       initialState,
     });
 
+  const handleLogin = async () => {
+    try {
+      dispatch(setLoading(true));
+
+      const response = await signInWithEmailAndPassword(
+        authentication,
+        values.userName ?? '',
+        values.password ?? '',
+      );
+
+      const {uid, email, displayName} = response.user;
+
+      dispatch(setUser({uid, email, displayName}));
+    } catch (error) {
+      console.error('Login Error:', error);
+      Alert.alert('Error', 'Invalid username or password');
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+  
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -94,7 +110,7 @@ const LoginScreen: React.FC = () => {
           <Text style={styles.errorText}>{getError('password')}</Text>
         )}
 
-        {loading && <ActivityIndicator size="large" />}
+        {(loading || isLoading) && <ActivityIndicator size="large" />}
 
         <TouchableOpacity
           style={styles.loginButton}

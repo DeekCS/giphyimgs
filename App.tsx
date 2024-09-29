@@ -1,12 +1,11 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import store, {useAppDispatch} from './src/store';
+import store from './src/store';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 import AppNavigator from './src/navigation/AppNavigator';
 
 const AppContent: React.FC = () => {
-  const dispatch = useAppDispatch();
   return <AppNavigator />;
 };
 

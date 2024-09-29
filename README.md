@@ -5,7 +5,7 @@ Giphy Images is a React Native app that allows users to browse, search, and view
 ## Features
 
 - **Browse Trending GIFs**: View the most popular trending GIFs from Giphy.—**Search GIFs**: Find specific GIFs by searching with a query.
-— **Favorites**: Save and view your favorite GIFs.
+  — **Favorites**: Save and view your favorite GIFs.
 
 ## Screens
 
@@ -23,12 +23,11 @@ Giphy Images is a React Native app that allows users to browse, search, and view
 
 ### Setup Instructions
 
-
 1. Login Account:
 
    ```bash
-   username: a.aldeek@gmail.com
-   password: password123
+   username: admin@gmail.com
+   password: admin12345
    ```
 
 1. Clone the repository:
@@ -37,13 +36,13 @@ Giphy Images is a React Native app that allows users to browse, search, and view
    git clone https://github.com/DeekCS/giphyimgs
    ```
 
-2. Navigate to the project directory:
+1. Navigate to the project directory:
 
    ```bash
    cd giphyimgs
    ```
 
-3. Install the required dependencies:
+1. Install the required dependencies:
 
    Using Yarn:
 
@@ -57,26 +56,25 @@ Giphy Images is a React Native app that allows users to browse, search, and view
    npm install
    ```
 
-
-4. Install CocoaPods for iOS (if using MacOS):
+1. Install CocoaPods for iOS (if using MacOS):
 
    ```bash
    cd ios && pod install && cd ..
    ```
 
-6. Create a `.env` file in the root of the project and add your Giphy API key and Firebase configuration:
+1. Create a `.env` file in the root of the project and add your Giphy API key and Firebase configuration:
 
    ```bash
    GIPHY_API_KEY='your_giphy_api_key' ### 9Y8pgdIcBQsIhgOGM8bwfH7C0i4H5wNs
    ```
 
-7. Start the Metro bundler:
+1. Start the Metro bundler:
 
    ```bash
    npx react-native start --reset-cache
    ```
 
-8. Run the app:
+1. Run the app:
 
    For iOS:
 
