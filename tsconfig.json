@@ -18,7 +18,8 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@utils/*": ["utils/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@navigation/*": ["navigation/*"]
     }
   },
 }
